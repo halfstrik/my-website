@@ -15,7 +15,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy-create": "./aws-create-stack.sh",
+    "deploy-update": "./aws-update-stack.sh"
   },
   "eslintConfig": {
     "extends": [
