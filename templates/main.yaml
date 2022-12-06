@@ -72,6 +72,7 @@ Resources:
   S3BucketLogs:
     Type: AWS::S3::Bucket
     DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
     Properties:
       AccessControl: LogDeliveryWrite
       BucketEncryption:
@@ -85,6 +86,7 @@ Resources:
   S3BucketRoot:
     Type: AWS::S3::Bucket
     DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
     Properties:
       BucketEncryption:
         ServerSideEncryptionConfiguration:
@@ -149,7 +151,7 @@ Resources:
             Id: !Sub 'S3-${AWS::StackName}-root'
             S3OriginConfig:
               OriginAccessIdentity:
-                !Join ['', ['origin-access-identity/cloudfront/', !Ref CloudFrontOriginAccessIdentity]]
+                !Sub 'origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}'
         PriceClass: 'PriceClass_All'
         ViewerCertificate:
           AcmCertificateArn: !Ref Certificate
