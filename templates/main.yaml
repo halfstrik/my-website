@@ -69,19 +69,19 @@ Resources:
           - Ref: AWS::NoValue
       ValidationMethod: DNS
 
-  S3BucketLogs:
-    Type: AWS::S3::Bucket
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
-    Properties:
-      AccessControl: LogDeliveryWrite
-      BucketEncryption:
-        ServerSideEncryptionConfiguration:
-          - ServerSideEncryptionByDefault:
-              SSEAlgorithm: AES256
-      Tags:
-        - Key: Solution
-          Value: ACFS3
+  # S3BucketLogs:
+  #   Type: AWS::S3::Bucket
+  #   DeletionPolicy: Retain
+  #   UpdateReplacePolicy: Retain
+  #   Properties:
+  #     AccessControl: LogDeliveryWrite
+  #     BucketEncryption:
+  #       ServerSideEncryptionConfiguration:
+  #         - ServerSideEncryptionByDefault:
+  #             SSEAlgorithm: AES256
+  #     Tags:
+  #       - Key: Solution
+  #         Value: ACFS3
 
   S3BucketRoot:
     Type: AWS::S3::Bucket
@@ -92,9 +92,9 @@ Resources:
         ServerSideEncryptionConfiguration:
           - ServerSideEncryptionByDefault:
               SSEAlgorithm: AES256
-      LoggingConfiguration:
-        DestinationBucketName: !Ref S3BucketLogs
-        LogFilePrefix: 'origin/'
+      # LoggingConfiguration:
+      #   DestinationBucketName: !Ref S3BucketLogs
+      #   LogFilePrefix: 'origin/'
       Tags:
         - Key: Solution
           Value: ACFS3
@@ -142,10 +142,10 @@ Resources:
         HttpVersion: 'http2'
         DefaultRootObject: 'index.html'
         IPV6Enabled: true
-        Logging:
-          Bucket: !GetAtt S3BucketLogs.DomainName
-          IncludeCookies: false
-          Prefix: 'cdn/'
+        # Logging:
+        #   Bucket: !GetAtt S3BucketLogs.DomainName
+        #   IncludeCookies: false
+        #   Prefix: 'cdn/'
         Origins:
           - DomainName: !GetAtt S3BucketRoot.DomainName
             Id: !Sub 'S3-${AWS::StackName}-root'
@@ -233,9 +233,9 @@ Outputs:
   CloudFrontDomainName:
     Description: Website address
     Value: !Sub '${SubDomain}.${DomainName}'
-  S3BucketLogs:
-    Description: Logging bucket
-    Value: !Ref S3BucketLogs
+  # S3BucketLogs:
+  #   Description: Logging bucket
+  #   Value: !Ref S3BucketLogs
   S3BucketRoot:
     Description: Website bucket
     Value: !Ref S3BucketRoot
